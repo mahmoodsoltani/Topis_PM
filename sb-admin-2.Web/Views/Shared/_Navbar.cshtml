@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PM.Models.Navbar>
+
+                    <!-- Sidebar Menu -->
+                    <nav id="sidebarMenu" class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            @foreach (var item in Model)
+                            {
+                                if (item.isParent == false && item.parentId == -1 && item.functionCall!= "")
+                                {
+                                    if (item.functionCall != null && item.functionCall != "")
+                                    {
+                                        <li class="nav-item"><a onclick="@item.functionCall" class="nav-link"><i class="@item.imageClass"></i> @item.nameOption</a></li>
+                                    }
+                                    else
+                                      {
+                                        <li class="nav-item"><a href="@Url.Action(item.action, item.controller)" class="nav-link"><i class="@item.imageClass"></i> @item.nameOption</a></li>
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.isParent == true)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link"><i class="nav-icon @item.imageClass"></i><p>@item.nameOption <i class="right fa fa-angle-left"></i></p></a>
+                                            <ul class="nav nav-treeview">
+                                                @foreach (var child in Model.Where(p => p.parentId == item.Id))
+                                                {
+                                                    if (child.controller == null)
+                                                    {
+                                                        <li class="nav-item" style="margin-right:30px"><a href="#" class="nav-link"><i class="@item.imageClass"></i><p>@child.nameOption</p></a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        if (child.ActionParameter != null)
+                                                        { <li class="nav-item" style="margin-right:30px;font-size:11px;"><a class="nav-link" href="@Url.Action(child.action, child.controller, new { id = child.ActionParameter})"><i class="fa fa-caret-left nav-icon"></i><p>@child.nameOption</p></a></li>}
+                                                        else
+                                                        {
+                                                <li class="nav-item" style="margin-right:30px;font-size:11px;"><a class="nav-link" href="@Url.Action(child.action, child.controller)"><i class="fa fa-caret-left nav-icon"></i><p>@child.nameOption</p></a></li>}
+                                                    }
+                                                }
+                                             
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                            }
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+<script>
+    function AlertExit() {
+        swal({
+            title: "آیا مایلید خارج شوید؟",
+            text: "",
+            type: "warning",
+            icon: "warning",
+            buttons: {
+                true: "بله",
+                false: "خیر"
+            },
+            dangerMode: true,
+            closeOnEsc: true,
+        }).then((Value) => {
+
+            if (Value == 'true')
+            {
+                window.location = '@Url.Action("LogOut", "Login")';
+
+                }
+        });
+    }
+</script>

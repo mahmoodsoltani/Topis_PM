@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>نرم افزار تعمیر و نگهداری شرکت تاپیس</title>
+    <link rel="icon" type="image/gif" href="~/dist/img/PM.png" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/dist/js/General.js"></script>
+    <!-- DataTables CSS -->
+   @* <link href="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css")" rel="stylesheet" type="text/css" />*@
+    <!-- DataTables Responsive CSS -->
+   @* <link href="@Url.Content("~/bower_components/datatables-responsive/css/dataTables.responsive.css")" rel="stylesheet" type="text/css" />*@
+
+    <link href="@Url.Content("~/bower_components/morrisjs/morris.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/bower_components/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+    <script src="~/dist/js/sweetalert.min.js"></script>
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/bower_components/jquery/dist/jquery.min.js")"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="@Url.Content("~/bower_components/metisMenu/dist/metisMenu.min.js")"></script>
+
+</head>
+<body>
+  
+        
+       
+            @RenderBody()          
+       
+     
+    <!-- DataTables JavaScript -->
+    <script src="@Url.Content("~/bower_components/raphael/raphael-min.js")"></script>
+ 
+    <!-- DataTables JavaScript -->
+    <script src="@Url.Content("~/bower_components/datatables/media/js/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js")"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="@Url.Content("~/Scripts/sb-admin-2.js")"></script>
+    <script> @Html.Raw(PM.App_Code.PublicFunction.ShowAlert())</script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+   
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

@@ -1,0 +1,136 @@
+﻿@model IEnumerable<MRKHTV.MRKInfoService.Weather>
+
+@{
+    ViewBag.Title = "Product2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Product2</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Creator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ctime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Footer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Header)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Humidity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modifier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mtime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NowTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TemperatureTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WeatherImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WeatherLanguageID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WindDirection)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WindTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Creator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ctime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Footer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Header)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Humidity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modifier)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mtime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NowTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemperatureTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeatherImg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeatherLanguageID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WindDirection)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WindTitle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WeatherID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WeatherID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WeatherID })
+        </td>
+    </tr>
+}
+
+</table>

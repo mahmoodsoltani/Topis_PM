@@ -1,0 +1,102 @@
+﻿@model IEnumerable<PM.Models.PM_ActionListMetaData>
+<link rel="stylesheet" href="~/dist/css/custom-style.css">
+<div id="Modal_@ViewBag.ID_Role" class="modal fade " role="dialog">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title">انتخاب دسترسی به منو</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul id="myUL">
+                    @{    IList<string> DistinctList = (IList<string>)Model.Select(i => i.Fa_ControllerName).Distinct().ToList();
+                    }
+                    @foreach (var Controller in DistinctList)
+                    {
+                            <li>                                
+                                <i class="fa fa-arrow-left caret"></i>&nbsp; <span class="caret"><label class="DDisplayImportant" >@Controller </label></span>
+                               
+                                @{    IList<PM.Models.PM_ActionListMetaData> ActionList = (IList<PM.Models.PM_ActionListMetaData>)Model.Where(i => (i.Fa_ControllerName == Controller)).ToList();
+                                }<ul class="Shownested">
+                                    @foreach (var Actionlist in ActionList)
+
+                                    {
+
+                                        <li style="padding-right:30px" class="caret">
+                                            @{ string _ID = Actionlist.PM_ActionlistID + "_" + ViewBag.ID_Role;}
+                                            @if (Actionlist.Id_Role != null)
+                                            {
+                                                <span class="LastChild"><input class="checkbox" checked type="checkbox" id="@_ID"  name="@_ID" /><label class="DDisplayImportant"  for="@_ID"> @Actionlist.Fa_ActionName </label></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="LastChild"><input class="checkbox" type="checkbox"  id="@_ID"  name="@_ID" /><label class="DDisplayImportant"   for="@_ID"> @Actionlist.Fa_ActionName </label></span>
+                                            }
+                                        </li>
+
+                                    }
+                                </ul>
+
+                            </li>
+
+                                        }
+                                    
+                </ul>
+
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-success m-2" data-dismiss="modal">
+                        <i class="fa fa-check"></i> انتخاب
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        انصراف
+                    </button>
+                </div>*@
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    $('input[type="checkbox"]').change(function() {
+    var Role_menu;
+   if (@ViewBag.ID_Role!=$(this).attr('id').substring( $(this).attr('id').indexOf('_')+1))
+    return;
+    if($(this).is(":checked"))
+      Role_menu = '{roleid: "' + @ViewBag.ID_Role + '",actionlistid:"' +$(this).attr('id') +'",is_check:"true"}';
+      else
+           Role_menu = '{roleid: "' + @ViewBag.ID_Role + '",actionlistid:"' +$(this).attr('id') +'",is_check:"false"}';
+
+
+        $.ajax({
+            url: '/api/Ajax/ChangeActionList',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'text',
+            data:Role_menu
+               ,
+            success: function (data, textStatus, xhr) {
+    
+            }
+            ,
+            error: function (xhr, textStatus, errorThrown) {
+            }
+        });
+});
+
+   var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+   
+        toggler[i].addEventListener("click", function () {
+        
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>

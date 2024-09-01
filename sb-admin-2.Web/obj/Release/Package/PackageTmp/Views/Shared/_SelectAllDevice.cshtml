@@ -1,0 +1,123 @@
+﻿@model IEnumerable<PM.Models.SelectEquipment>
+<link rel="stylesheet" href="~/dist/css/custom-style.css">
+<div id="SelectDevice" class="modal fade " role="dialog">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title">انتخاب دستگاه</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul id="myUL">
+                    @foreach (var Pm_Fact in Model)
+                    {
+                        if (Pm_Fact.Id_Parent == -1)
+                        {
+                            <li>
+                                <i class="fa fa-arrow-left "></i>&nbsp;<span class="">@Pm_Fact.Name</span>
+                                @{    IList<PM.Models.SelectEquipment> Dep = (IList<PM.Models.SelectEquipment>)Model.Where(i => (i.Id_Parent == Pm_Fact.Id && i.type == 2)).ToList();
+                                }<ul class="nestedShow">
+                                    @foreach (var Pm_Department in Dep)
+                                    {
+                                        <li>
+                                            <i class="fa fa-arrow-left "></i>&nbsp;
+                                            <span class="">@Pm_Department.Name</span>
+                                            @{    IList<PM.Models.SelectEquipment> PL = (IList<PM.Models.SelectEquipment>)Model.Where(i => (i.Id_Parent == Pm_Department.Id && i.type == 3)).ToList();
+                                            }<ul class="nestedShow">
+                                                @foreach (var pm_ProductLine in PL)
+                                                {
+                                                    <li>
+                                                        <i class="fa fa-arrow-left Dcaret"></i>&nbsp;
+                                                        <span class="Dcaret">@pm_ProductLine.Name</span>
+                                                        @{    IList<PM.Models.SelectEquipment> Dev = (IList<PM.Models.SelectEquipment>)Model.Where(i => (i.Id_Parent == pm_ProductLine.Id && i.type == 4)).ToList();
+                                                        } <ul class="nested">
+                                                            @foreach (var Pm_Device in Dev)
+                                                            {
+
+                                                                <li style="padding-right:30px">
+                                                                    <span class="LastChild"><input class="checkbox" type="checkbox" id="@Pm_Device.Id" name="Device" value="@Pm_Device.Id" /><label class="DDisplayImportant" id="@Pm_Device.Id" for="@Pm_Device.Id"> @Pm_Device.Name </label></span>
+                                                                </li>
+
+                                                            }
+                                                        </ul>
+
+                                                    </li>
+
+                                                            }
+                                            </ul>
+
+                                        </li>
+                                                            }
+                                </ul>
+                            </li>
+                                                                }
+                                                            }
+                </ul>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-success m-2" data-dismiss="modal" onclick="GatherSelectDevice();">
+                        <i class="fa fa-check"></i> انتخاب
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        انصراف
+                    </button>
+                </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    //$(".DDisplayImportant").dblclick(function () {
+
+    //    $("#DeviceName").val($(this).text());
+    //    $("#Id_device").val($(this).attr("id"));
+    //    $("#Id_Device").val($(this).attr("id"));
+    //    $("#EquipmentName").val('');
+    //    $("#Id_equipment").val('');
+    //    $("#Id_Equipment").val('');
+
+    //    $("#SelectDevice .close").click();
+    //});
+    function GatherSelectDevice()
+    {
+        var count = 0;
+        var ids = "";
+        var names = "";
+        $('input[type=checkbox]').each(function () {
+            if (this.checked) {
+                count++;
+                if (ids == "") {
+                    ids = $(this).attr('id');
+                    names = $(this).next('label').text();;
+                }
+                else {
+                    ids += "," + $(this).attr('id');
+                    names += ","+  $(this).next('label').text();
+
+                }
+            }
+        });
+        $("#Id_Devices").val(ids);
+        $("#Id_devices").val(ids);
+        $("#DeviceName").val(names);
+        $("#SelectDevice .close").click();
+        $("#EquipmentName").val('');
+        $("#Id_equipment").val('');
+        $("#Id_Equipment").val('');
+        var temp = "تعداد " + count + " دستگاه انتخاب شده است.";
+        $('#deviceCount').text(temp.toFaDigit());
+    }
+    var toggler = document.getElementsByClassName("Dcaret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>

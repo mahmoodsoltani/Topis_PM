@@ -1,0 +1,161 @@
+﻿@model IEnumerable<MRKHTV.MRKInfoService.Weather>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary list-panel" id="list-panel">
+                <div class="panel-heading list-panel-heading">
+                    <h1 class="panel-title list-panel-title">لیست آب و هوا</h1>
+                </div>
+                <div class="panel-body">
+                    <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                            @*  @{ PM.Models.Weather dummyModel = null; }*@
+                               @* <th>    @Html.DisplayNameFor(dummyParam => dummyModel.WeatherID) </th>*@
+<th>کد هوا</th>
+                                <th>نام</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Weather in Model)
+                            {
+                                <tr>
+                                    <td>@Weather.WeatherID</td>
+                                    <td>@Weather.Header</td>
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts
+{
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#assets-data-table').DataTable({
+                    buttons: [
+                           'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "language": {
+                        "Processing": "درحال پردازش...",
+                        "lengthMenu": "نمایش محتویات _MENU_",
+                        "zeroRecords": "متاسفانه موردی پیدا نشد",
+                        "info": "نمایش _START_ تا _END_ از مجموع _TOTAL_ مورد",
+                        "infoEmpty": "رکوردی برای نمایش وجود ندارد",
+                        "infoFiltered": "(فیلتر شده از مجموع _MAX_ مورد)",
+                        "infoPostFix": "",
+                        "search": "جستجو:",
+                        "url": "",
+                        "oPaginate": {
+                            "sFirst": "ابتدا",
+                            "sPrevious": "قبلی",
+                            "sNext": "بعدی",
+                            "sLast": "انتها"
+                        }
+                    },
+                });
+            });
+        </script>
+
+    }
+ @*var datatableVariable = $('#studentTable').DataTable({
+                        fixedHeader: {
+                            header: true,
+                            footer: true
+                        },
+                        "pagingType": "full_numbers",
+                        "order": [[1, "asc"]],
+                        dom: 'Blfrtip',
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ],
+                        //Scroll - horizontal and vertical
+                        //"scrollY": 500,
+                        //"scrollX": true,
+
+                        //"language": {
+                        //    "url": "DataTables/js/Persian.json"
+                        //},
+                        "language": {
+                            "Processing": "درحال پردازش...",
+                            "lengthMenu": "نمایش محتویات _MENU_",
+                            "zeroRecords": "متاسفانه موردی پیدا نشد",
+                            "info": "نمایش _START_ تا _END_ از مجموع _TOTAL_ مورد",
+                            "infoEmpty": "رکوردی برای نمایش وجود ندارد",
+                            "infoFiltered": "(فیلتر شده از مجموع _MAX_ مورد)",
+                            "infoPostFix": "",
+                            "search": "جستجو:",
+                            "url": "",
+                            "oPaginate": {
+                                "sFirst": "ابتدا",
+                                "sPrevious": "قبلی",
+                                "sNext": "بعدی",
+                                "sLast": "انتها"
+                            }
+                        },
+
+                        data: $.parseJSON(data.d),
+                        columns: [
+                            {
+                                "className": 'details-control',
+                                "orderable": false,
+                                "data": null,
+                                "defaultContent": ''
+                            },
+                            { 'data': 'CityID' },
+                            { 'data': 'CityName' },
+                            { 'data': 'StateID' },
+                            { 'data': 'CityDesc' },
+                            { 'data': 'Creator' },
+                            { 'data': 'Ctime' },
+                            { 'data': 'Modifier' },
+                            { 'data': 'Mtime' },
+                            { 'data': 'IsActive' },
+                            { 'data': 'IsDeleted' }
+                        ]
+                    });
+                    // Setup - add a text input to each footer cell
+                    $('#studentTable tfoot th').each(function () {
+                        var placeHolderTitle = $('#studentTable thead th').eq($(this).index()).text();
+                        $(this).html('<input type="text" class="form-control input input-sm" placeholder="جستجو ' + placeHolderTitle + '" />');
+                    });
+                    // Apply the search
+                    datatableVariable.columns().every(function () {
+                        var column = this;
+                        $(this.footer()).find('input').on('keyup change', function () {
+                            column.search(this.value).draw();
+                        });
+                    });
+                    // Add event listener for opening and closing details
+                    $('#studentTable tbody').on('click', 'td.details-control', function () {
+                        var tr = $(this).closest('tr');
+                        var row = datatableVariable.row(tr);
+
+                        if (row.child.isShown()) {
+                            // This row is already open - close it
+                            row.child.hide();
+                            tr.removeClass('shown');
+                        }
+                        else {
+                            // Open this row
+                            row.child(format(row.data())).show();
+                            tr.addClass('shown');
+                        }
+                    });
+
+                    $('.showHide').on('click', function () {
+                        var tableColumn = datatableVariable.column($(this).attr('data-columnindex'));
+                        tableColumn.visible(!tableColumn.visible());
+                    });
+
+                }
+            });*@
